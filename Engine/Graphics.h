@@ -86,6 +86,6 @@ private:
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Surface												sysBuffer;
 public:
-	static constexpr unsigned int ScreenWidth = 800u;
-	static constexpr unsigned int ScreenHeight = 600u;
+	static constexpr unsigned int ScreenWidth = 960u;
+	static constexpr unsigned int ScreenHeight = 960u;
 };
