@@ -79,7 +79,14 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	auto lines = cube.GetLines();
+	const Vec2 v0(500,800 );
+	const Vec2 v1( 250 ,650 );
+	const Vec2 v2( 170 , 230.8 );
+
+	gfx.DrawTriangle(v0, v1, v2, Colors::Red);
+
+
+	/*auto lines = cube.GetLines();
 	const auto rotation = Mat3::RotationZ(theta_z) * Mat3::RotationY(theta_y) * Mat3::RotationX(theta_x);
 
 	for (auto& v : lines.vertices)
@@ -95,6 +102,6 @@ void Game::ComposeFrame()
 	{
 		gfx.DrawLine(lines.vertices[*i], lines.vertices[*std::next(i)], Colors::White);
 	}
-
+	*/
 	
 }
