@@ -91,6 +91,13 @@ public:
 	{
 		return _Vec3(*this) *= rhs;
 	}
+	_Vec3 CrossProd(const _Vec3& rhs) {
+		return _Vec3(
+			y * rhs.z - z * rhs.y ,
+			z * rhs.x - x * rhs.z ,
+			x * rhs.y - y * rhs.x
+		)
+	}
 	_Vec3& operator/=(const T& rhs)
 	{
 		x /= rhs;
