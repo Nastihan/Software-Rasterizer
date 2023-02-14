@@ -104,14 +104,36 @@ void Game::ComposeFrame()
 		v *= rotation;
 		v += {0.0f, 0.0f, offSetZ};
 		v += {0.0f, 0.0f, 2.0f};
+	}
+	// Backface culling
+	for (size_t i = 0,end = triangles.indices.size() / 3;i < end; i++)
+		{
+			const Vec3& v0 = triangles.vertices[triangles.indices[i * 3]];
+			const Vec3& v1 = triangles.vertices[triangles.indices[i * 3 + 1]];
+			const Vec3& v2 = triangles.vertices[triangles.indices[i * 3 + 2]];
+
+
+			triangles.cullFlags[i] = (v1 - v0).CrossProd((v2 - v0)) * v0 > 0.0f;
+		}
+	// Transform to screen space (3d perspective division is also done here) 
+	for (auto& v : triangles.vertices)
+	{
 		cst.Transform(v);
 	}
-	for (auto i = triangles.indices.cbegin(),
-		end = triangles.indices.cend();
-		i != end; std::advance(i, 3))
+	// Drawing the triangles
+	for (size_t i = 0,
+		end = triangles.indices.size() / 3;
+		i < end; i++)
 	{
-		gfx.DrawTriangle(triangles.vertices[*i], triangles.vertices[*std::next(i)], triangles.vertices[*std::next(i, 2)],
-			colors[std::distance(triangles.indices.cbegin(), i) / 3]);
+		
+		if (!triangles.cullFlags[i])
+		{
+			gfx.DrawTriangle(
+				triangles.vertices[triangles.indices[i * 3]],
+				triangles.vertices[triangles.indices[i * 3 + 1]],
+				triangles.vertices[triangles.indices[i * 3 + 2]],
+				colors[i]);
+		}
 	}
 	
 	
