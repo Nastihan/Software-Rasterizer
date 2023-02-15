@@ -102,6 +102,12 @@
     <ClInclude Include="ConHexWireScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="XQuads.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XMutualScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
