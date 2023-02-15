@@ -142,6 +142,7 @@
     <ClInclude Include="Colors.h" />
     <ClInclude Include="ConcaveHexahedron.h" />
     <ClInclude Include="ConHexScene.h" />
+    <ClInclude Include="ConHexWireScene.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeOrderScene.h" />
     <ClInclude Include="CubeScreenTransformer.h" />
