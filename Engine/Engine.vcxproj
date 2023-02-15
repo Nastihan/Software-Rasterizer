@@ -141,6 +141,7 @@
     <ClInclude Include="ChiliWin.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="CubeOrderScene.h" />
     <ClInclude Include="CubeScreenTransformer.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Game.h" />

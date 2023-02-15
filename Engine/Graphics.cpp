@@ -424,7 +424,7 @@ void Graphics::DrawTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Colo
 void Graphics::DrawFlatTopTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c) {
 
 	// Calculate the slopes
-	float m0 = (v2.x - v0.x) / (v2.y - v0.y);
+	const float m0 = (v2.x - v0.x) / (v2.y - v0.y);
 	float m1 = (v2.x - v1.x) / (v2.y - v1.y);
 
 	// Calculate first and last scanline
@@ -449,8 +449,8 @@ void Graphics::DrawFlatTopTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v
 void Graphics::DrawFlatBottomTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c) {
 
 	// Calculate the slopes
-	float m0 = (v1.x - v0.x) / (v1.y - v0.y);
-	float m1 = (v2.x - v0.x) / (v2.y - v0.y);
+	const float m0 = (v1.x - v0.x) / (v1.y - v0.y);
+	const float m1 = (v2.x - v0.x) / (v2.y - v0.y);
 
 	// Calculate first and last scanline
 	const int yStart = (int)ceil(v0.y - 0.5);
