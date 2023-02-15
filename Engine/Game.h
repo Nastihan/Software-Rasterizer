@@ -21,11 +21,8 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Vec2.h"
-#include <vector>
-#include "ChiliMath.h"
-#include "CubeScreenTransformer.h"
-#include "Cube.h"
+#include "SolidCubeScene.h"
+
 
 class Game
 {
@@ -45,14 +42,8 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables	*/
-	Cube cube;
-	CubeScreenTransformer cst;
-
-	static constexpr float dTheta = PI;
-	float theta_x = 0.0f;
-	float theta_y = 0.0f;
-	float theta_z = 0.0f;
-
-	float offSetZ = 2.0f;
+	
+	SolidCubeScene solidcube;
+	
 	/********************************/
 };
