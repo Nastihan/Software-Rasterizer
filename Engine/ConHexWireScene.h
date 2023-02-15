@@ -63,16 +63,6 @@ public:
 			v += { 0.0f, 0.0f, offset_z };
 			v += {0.0f, 0.0f, 2.0f};
 		}
-		// Backface culling
-		for (size_t i = 0, end = triangles.indices.size() / 3; i < end; i++)
-		{
-			const Vec3& v0 = triangles.vertices[triangles.indices[i * 3]];
-			const Vec3& v1 = triangles.vertices[triangles.indices[i * 3 + 1]];
-			const Vec3& v2 = triangles.vertices[triangles.indices[i * 3 + 2]];
-
-
-			triangles.cullFlags[i] = (v1 - v0).CrossProd((v2 - v0)) * v0 > 0.0f;
-		}
 		// Transform to screen space (3d perspective division is also done here) 
 		for (auto& v : triangles.vertices)
 		{
@@ -109,11 +99,11 @@ public:
 	}
 private:
 	CubeScreenTransformer cst;
-	ConcaveHexahedron hex = ConcaveHexahedron(2.0f);
+	ConcaveHexahedron hex = ConcaveHexahedron(1.0f);
 	static constexpr Color colorSolid = Colors::Gray;
 	static constexpr Color colorWire = Colors::Magenta;
 	static constexpr float dTheta = PI;
-	float offset_z = 2.0f;
+	float offset_z = 0.0f;
 	float theta_x = 0.0f;
 	float theta_y = 0.0f;
 	float theta_z = 0.0f;

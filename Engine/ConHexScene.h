@@ -89,7 +89,7 @@ public:
 
 private:
 	CubeScreenTransformer cst;
-	ConcaveHexahedron hex = ConcaveHexahedron(2.0f);
+	ConcaveHexahedron hex = ConcaveHexahedron(1.0f);
 	static constexpr Color colors[12] = {
 		Colors::White,
 		Colors::Blue,
@@ -99,7 +99,7 @@ private:
 		Colors::Magenta,
 	};
 	static constexpr float dTheta = PI;
-	float offset_z = 2.0f;
+	float offset_z = 0.0f;
 	float theta_x = 0.0f;
 	float theta_y = 0.0f;
 	float theta_z = 0.0f;

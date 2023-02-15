@@ -88,7 +88,7 @@ public:
 	
 private:
 	CubeScreenTransformer cst;
-	Cube cube = Cube(2.0f);
+	Cube cube = Cube(1.0f);
 	static constexpr Color colors[12] = {
 		Colors::White,
 		Colors::Blue,
@@ -104,7 +104,7 @@ private:
 		Colors::Cyan
 	};
 	static constexpr float dTheta = PI;
-	float offset_z = 2.0f;
+	float offset_z = 0.0f;
 	float theta_x = 0.0f;
 	float theta_y = 0.0f;
 	float theta_z = 0.0f;
