@@ -1,13 +1,15 @@
 #pragma once
 #include "Scene.h"
-#include "Cube.h"
+#include "ConcaveHexahedron.h"
 #include "CubeScreenTransformer.h"
 #include "Mat3.h"
 
-class SolidCubeScene : public Scene {
+class ConHexScene : public Scene
+{
 public:
-	SolidCubeScene() = default;
-	virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override {
+	ConHexScene() = default;
+	virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override
+	{
 		if (kbd.KeyIsPressed('Q'))
 		{
 			theta_x = wrap_angle(theta_x + dTheta * dt);
@@ -40,10 +42,10 @@ public:
 		{
 			offset_z -= 2.0f * dt;
 		}
-
 	}
-	virtual void Draw(Graphics& gfx) const override {
-		auto triangles = cube.GetTriangles();
+	virtual void Draw(Graphics& gfx) const override
+	{
+		auto triangles = hex.GetTriangles();
 		// Generate rotation matrix
 		const auto rotation = Mat3::RotationZ(theta_z) * Mat3::RotationY(theta_y) * Mat3::RotationX(theta_x);
 
@@ -83,25 +85,18 @@ public:
 					colors[i]);
 			}
 		}
-
 	}
-	
+
 private:
 	CubeScreenTransformer cst;
-	Cube cube = Cube(2.0f);
+	ConcaveHexahedron hex = ConcaveHexahedron(1.0f);
 	static constexpr Color colors[12] = {
 		Colors::White,
 		Colors::Blue,
 		Colors::Cyan,
-		Colors::Gray,
+		Colors::Yellow,
 		Colors::Green,
 		Colors::Magenta,
-		Colors::LightGray,
-		Colors::Red,
-		Colors::Yellow,
-		Colors::White,
-		Colors::Blue,
-		Colors::Cyan
 	};
 	static constexpr float dTheta = PI;
 	float offset_z = 2.0f;

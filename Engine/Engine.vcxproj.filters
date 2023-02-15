@@ -93,6 +93,12 @@
     <ClInclude Include="CubeOrderScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ConcaveHexahedron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConHexScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">

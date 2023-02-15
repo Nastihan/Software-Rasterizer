@@ -47,6 +47,7 @@ public:
 		{
 			// Draw code for 1st cube
 			auto triangles = cube.GetTriangles();
+			// Generate rotation matrix
 			const auto rotation = Mat3::RotationZ(theta_z) * Mat3::RotationY(theta_y) * Mat3::RotationX(theta_x);
 
 			for (auto& v : triangles.vertices)
@@ -90,6 +91,7 @@ public:
 		// Draw code for 2nd cube
 		{
 			auto triangles = cube.GetTriangles();
+			// Generate rotation matrix
 			const auto rotation = Mat3::RotationZ(theta_z + 180) * Mat3::RotationY(theta_y ) * Mat3::RotationX(theta_x);
 
 			for (auto& v : triangles.vertices)
