@@ -21,7 +21,9 @@
 #pragma once
 
 #include "Graphics.h"
-#include "SolidCubeScene.h"
+#include <memory>
+#include <vector>
+#include "Scene.h"
 
 
 class Game
@@ -36,6 +38,7 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	void CycleScenes();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -43,7 +46,8 @@ private:
 	/********************************/
 	/*  User Variables	*/
 	
-	SolidCubeScene solidcube;
+	std::vector<std::unique_ptr<Scene>> scenes;
+	std::vector<std::unique_ptr<Scene>>::iterator curScene;
 	
 	/********************************/
 };

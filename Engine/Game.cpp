@@ -20,6 +20,7 @@
 ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "SolidCubeScene.h"
 
 
 Game::Game( MainWindow& wnd )
@@ -27,7 +28,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd )
 {
-	
+	scenes.push_back(std::make_unique<SolidCubeScene>());
+	curScene = scenes.begin();
 }
 
 void Game::Go()
@@ -40,13 +42,32 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	
 	const float dt = 1.0f / 60.0f;
-	solidcube.Update(wnd.kbd, wnd.mouse, dt);
+	// Cycle through scenes with tab key
+	while (!wnd.kbd.KeyIsEmpty())
+	{
+		const auto e = wnd.kbd.ReadKey();
+		if (e.GetCode() == VK_TAB && e.IsPress())
+		{
+			CycleScenes();
+		}
+	}
+
+	(*curScene)->Update(wnd.kbd, wnd.mouse, dt);
 
 }
 
 void Game::ComposeFrame()
 {	
-	
-	solidcube.Draw(gfx);
+	(*curScene)->Draw(gfx);
+}
+
+// CycleScenes function to cycle through scenes
+void Game::CycleScenes()
+{
+	if (++curScene == scenes.end())
+	{
+		curScene = scenes.begin();
+	}
 }
