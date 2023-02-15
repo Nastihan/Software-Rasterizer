@@ -89,7 +89,7 @@ public:
 
 private:
 	CubeScreenTransformer cst;
-	ConcaveHexahedron hex = ConcaveHexahedron(1.0f);
+	ConcaveHexahedron hex = ConcaveHexahedron(2.0f);
 	static constexpr Color colors[12] = {
 		Colors::White,
 		Colors::Blue,
