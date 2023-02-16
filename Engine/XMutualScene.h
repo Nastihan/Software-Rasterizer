@@ -59,7 +59,7 @@ public:
 		{
 			const Vec3& v0 = triangles.vertices[triangles.indices[i * 3]];
 			const Vec3& v1 = triangles.vertices[triangles.indices[i * 3 + 1]];
-			const Vec3& v2 = triangles.vertices[triangles.indices[i * 3 + 2]];
+			const Vec3& v2 = triangles.vertices[triangles.indices[i * 3 + 2]]; 
 
 
 			triangles.cullFlags[i] = (v1 - v0).CrossProd((v2 - v0)) * v0 > 0.0f;
