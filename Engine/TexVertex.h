@@ -22,5 +22,6 @@ public:
 
 private:
 	Vec3 pos;
+	// Texture coordinate
 	Vec2 tc;
 };
