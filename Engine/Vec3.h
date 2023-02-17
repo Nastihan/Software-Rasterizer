@@ -117,7 +117,7 @@ public:
 	{
 		return !(*this == rhs);
 	}
-	_Vec3 InterpolateTo(const _Vec2& dest, float alpha) const {
+	_Vec3 InterpolateTo(const _Vec3& dest, float alpha) const {
 		return  *this + (dest - *this) * alpha;
 	}
 public:
