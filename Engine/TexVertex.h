@@ -19,7 +19,48 @@ public:
 			tc.InterpolateTo(dest.tc,alpha)
 		};
 	}
+	TexVertex& operator+=(const TexVertex& rhs)
+	{
+		pos += rhs.pos;
+		tc += rhs.tc;
+		return *this;
+	}
+	TexVertex operator+(const TexVertex& rhs) const
+	{
+		return TexVertex(*this) += rhs;
+	}
+	TexVertex& operator-=(const TexVertex& rhs)
+	{
+		pos -= rhs.pos;
+		tc -= rhs.tc;
+		return *this;
+	}
+	TexVertex operator-(const TexVertex& rhs) const
+	{
+		return TexVertex(*this) -= rhs;
+	}
+	TexVertex& operator*=(float rhs)
+	{
+		pos *= rhs;
+		tc *= rhs;
+		return *this;
+	}
+	TexVertex operator*(float rhs) const
+	{
+		return TexVertex(*this) *= rhs;
+	}
+	TexVertex& operator/=(float rhs)
+	{
+		pos /= rhs;
+		tc /= rhs;
+		return *this;
+	}
+	TexVertex operator/(float rhs) const
+	{
+		return TexVertex(*this) /= rhs;
+	}
 
+public:
 	Vec3 pos;
 	// Texture coordinate
 	Vec2 tc;
