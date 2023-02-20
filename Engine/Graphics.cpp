@@ -461,6 +461,46 @@ void Graphics::DrawTriangleTex(const TexVertex& v0, const TexVertex& v1, const T
 	}
 }
 
+void Graphics::DrawTriangleTexWrap(const TexVertex& v0, const TexVertex& v1, const TexVertex& v2, const Surface& tex)
+{
+	const TexVertex* pv0 = &v0;
+	const TexVertex* pv1 = &v1;
+	const TexVertex* pv2 = &v2;
+
+	// Sorting vec2 pointers by y
+	if (pv1->pos.y < pv0->pos.y) std::swap(pv0, pv1);
+	if (pv2->pos.y < pv1->pos.y) std::swap(pv1, pv2);
+	if (pv1->pos.y < pv0->pos.y) std::swap(pv0, pv1);
+
+	if (pv0->pos.y == pv1->pos.y) {
+
+		if (pv1->pos.x < pv0->pos.x) std::swap(pv0, pv1);
+		DrawFlatTopTriangleTex(*pv0, *pv1, *pv2, tex);
+	}
+	else if (pv1->pos.y == pv2->pos.y) {
+		if (pv2->pos.x < pv1->pos.x) std::swap(pv1, pv2);
+		DrawFlatBottomTriangleTex(*pv0, *pv1, *pv2, tex);
+	}
+	else {
+
+		// find alpha t0o find the spilitting vertex
+		const float alpha = (pv1->pos.y - pv0->pos.y) / (pv2->pos.y - pv0->pos.y);
+
+		const TexVertex vi = pv0->InterpolateTo(*pv2, alpha);
+
+		if (pv1->pos.x < vi.pos.x) // major right
+		{
+			DrawFlatBottomTriangleTex(*pv0, *pv1, vi, tex);
+			DrawFlatTopTriangleTex(*pv1, vi, *pv2, tex);
+		}
+		else // major left
+		{
+			DrawFlatBottomTriangleTex(*pv0, vi, *pv1, tex);
+			DrawFlatTopTriangleTex(vi, *pv1, *pv2, tex);
+		}
+	}
+}
+
 void Graphics::DrawFlatTopTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c) {
 
 	// Calculate the slopes
@@ -582,4 +622,73 @@ void Graphics::DrawFlatTriangleTex(const TexVertex& v0, const TexVertex& v1, con
 		}
 	}
 
+}
+
+void Graphics::DrawFlatTopTriangleTexWrap(const TexVertex& v0, const TexVertex& v1, const TexVertex& v2, const Surface& tex)
+{
+	// calculate delta_y 
+	const float delta_y = v2.pos.y - v0.pos.y;
+
+	// calculate delta_vertex / delta_y
+	const TexVertex dv0 = (v2 - v0) / delta_y;
+	const TexVertex dv1 = (v2 - v1) / delta_y;
+
+	// create edge interpolant
+	TexVertex itEdge1 = v1;
+
+	DrawFlatTriangleTex(v0, v1, v2, tex, dv0, dv1, itEdge1);
+}
+
+void Graphics::DrawFlatBottomTriangleTexWrap(const TexVertex& v0, const TexVertex& v1, const TexVertex& v2, const Surface& tex)
+{
+	// calculate delta_y 
+	const float delta_y = v2.pos.y - v0.pos.y;
+
+	// calculate delta_vertex / delta_y
+	const TexVertex dv0 = (v1 - v0) / delta_y;
+	const TexVertex dv1 = (v2 - v0) / delta_y;
+
+	// create edge interpolants
+	TexVertex itEdge1 = v0;
+
+	DrawFlatTriangleTex(v0, v1, v2, tex, dv0, dv1, itEdge1);
+}
+
+void Graphics::DrawFlatTriangleTexWrap(const TexVertex& v0, const TexVertex& v1, const TexVertex& v2, const Surface& tex, const TexVertex& dv0, const TexVertex& dv1, TexVertex& itEdge1)
+{
+	TexVertex itEdge0 = v0;
+
+	// Calculate first and last scanline
+	const int yStart = (int)ceil(v0.pos.y - 0.5);
+	const int yEnd = (int)ceil(v2.pos.y - 0.5f);
+
+	// interpolants prestep
+	itEdge0 += dv0 * (float(yStart) + 0.5f - v0.pos.y);
+	itEdge1 += dv1 * (float(yStart) + 0.5f - v0.pos.y);
+
+	// Helper values
+	const float tex_width = float(tex.GetWidth());
+	const float tex_height = float(tex.GetHeight());
+	const float tex_clamp_x = tex_width - 1.0f;
+	const float tex_clamp_y = tex_height - 1.0f;
+
+	for (int y = yStart; y < yEnd; y++, itEdge0 += dv0, itEdge1 += dv1) {
+
+		// calculate start and end pixels
+		const int xStart = (int)ceil(itEdge0.pos.x - 0.5f);
+		const int xEnd = (int)ceil(itEdge1.pos.x - 0.5f);
+
+		// calculate scanline dTexCoord / dx
+		const Vec2 dtcLine = (itEdge1.tc - itEdge0.tc) / (itEdge1.pos.x - itEdge0.pos.x);
+
+		// create scanline tex coord interpolant and prestep
+		Vec2 itcLine = itEdge0.tc + dtcLine * (float(xStart) + 0.5f - itEdge0.pos.x);
+
+		for (int x = xStart; x < xEnd; x++, itcLine += dtcLine)
+		{
+			PutPixel(x, y, tex.GetPixel(
+				int(fmod(itcLine.x * tex_width, tex_clamp_x)),
+				int(fmod(itcLine.y * tex_height, tex_clamp_y))));
+		}
+	}
 }
