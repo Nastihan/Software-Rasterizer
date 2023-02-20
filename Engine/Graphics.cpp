@@ -475,11 +475,11 @@ void Graphics::DrawTriangleTexWrap(const TexVertex& v0, const TexVertex& v1, con
 	if (pv0->pos.y == pv1->pos.y) {
 
 		if (pv1->pos.x < pv0->pos.x) std::swap(pv0, pv1);
-		DrawFlatTopTriangleTex(*pv0, *pv1, *pv2, tex);
+		DrawFlatTopTriangleTexWrap(*pv0, *pv1, *pv2, tex);
 	}
 	else if (pv1->pos.y == pv2->pos.y) {
 		if (pv2->pos.x < pv1->pos.x) std::swap(pv1, pv2);
-		DrawFlatBottomTriangleTex(*pv0, *pv1, *pv2, tex);
+		DrawFlatBottomTriangleTexWrap(*pv0, *pv1, *pv2, tex);
 	}
 	else {
 
@@ -490,13 +490,13 @@ void Graphics::DrawTriangleTexWrap(const TexVertex& v0, const TexVertex& v1, con
 
 		if (pv1->pos.x < vi.pos.x) // major right
 		{
-			DrawFlatBottomTriangleTex(*pv0, *pv1, vi, tex);
-			DrawFlatTopTriangleTex(*pv1, vi, *pv2, tex);
+			DrawFlatBottomTriangleTexWrap(*pv0, *pv1, vi, tex);
+			DrawFlatTopTriangleTexWrap(*pv1, vi, *pv2, tex);
 		}
 		else // major left
 		{
-			DrawFlatBottomTriangleTex(*pv0, vi, *pv1, tex);
-			DrawFlatTopTriangleTex(vi, *pv1, *pv2, tex);
+			DrawFlatBottomTriangleTexWrap(*pv0, vi, *pv1, tex);
+			DrawFlatTopTriangleTexWrap(vi, *pv1, *pv2, tex);
 		}
 	}
 }
@@ -636,7 +636,7 @@ void Graphics::DrawFlatTopTriangleTexWrap(const TexVertex& v0, const TexVertex& 
 	// create edge interpolant
 	TexVertex itEdge1 = v1;
 
-	DrawFlatTriangleTex(v0, v1, v2, tex, dv0, dv1, itEdge1);
+	DrawFlatTriangleTexWrap(v0, v1, v2, tex, dv0, dv1, itEdge1);
 }
 
 void Graphics::DrawFlatBottomTriangleTexWrap(const TexVertex& v0, const TexVertex& v1, const TexVertex& v2, const Surface& tex)
@@ -651,7 +651,7 @@ void Graphics::DrawFlatBottomTriangleTexWrap(const TexVertex& v0, const TexVerte
 	// create edge interpolants
 	TexVertex itEdge1 = v0;
 
-	DrawFlatTriangleTex(v0, v1, v2, tex, dv0, dv1, itEdge1);
+	DrawFlatTriangleTexWrap(v0, v1, v2, tex, dv0, dv1, itEdge1);
 }
 
 void Graphics::DrawFlatTriangleTexWrap(const TexVertex& v0, const TexVertex& v1, const TexVertex& v2, const Surface& tex, const TexVertex& dv0, const TexVertex& dv1, TexVertex& itEdge1)
