@@ -148,6 +148,8 @@
     <ClInclude Include="CubeFoldedWrap.h" />
     <ClInclude Include="CubeOrderScene.h" />
     <ClInclude Include="CubeScreenTransformer.h" />
+    <ClInclude Include="CubeSkinned.h" />
+    <ClInclude Include="CubeSkinnedScene.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FoldedCubeScene.h" />
     <ClInclude Include="FoldedCubeWrapScene.h" />

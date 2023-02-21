@@ -29,7 +29,7 @@
 #include "TexWrapCubeScene.h"
 #include "FoldedCubeScene.h"
 #include "FoldedCubeWrapScene.h"
-
+#include "CubeSkinnedScene.h"
 
 Game::Game( MainWindow& wnd )
 	:
@@ -47,7 +47,10 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
 	//scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
 	//scenes.push_back(std::make_unique<FoldedCubeScene>());
-	scenes.push_back(std::make_unique < FoldedCubeWrapScene>());
+	//scenes.push_back(std::make_unique < FoldedCubeWrapScene>());
+	scenes.push_back(std::make_unique < CubeSkinnedScene>(L"images\\dice_skin.png"));
+	scenes.push_back(std::make_unique<CubeSkinnedScene>(L"images\\office_skin.jpg"));
+	scenes.push_back(std::make_unique<CubeSkinnedScene>(L"images\\office_skin_lores.png"));
 
 	curScene = scenes.begin();
 }
