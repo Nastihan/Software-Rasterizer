@@ -44,12 +44,12 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<TexCubeScene>());
 	//scenes.push_back(std::make_unique<TexCubeScene>(2.0f));
 	//scenes.push_back(std::make_unique<TexWrapCubeScene>(2.0f));
-	//scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
+	scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
 	
 	//scenes.push_back(std::make_unique<FoldedCubeScene>());
 	//scenes.push_back(std::make_unique < FoldedCubeWrapScene>());
-	//scenes.push_back(std::make_unique < CubeSkinnedScene>(L"images\\dice_skin.png"));
-	//scenes.push_back(std::make_unique<CubeSkinnedScene>(L"images\\office_skin.jpg"));
+	scenes.push_back(std::make_unique < CubeSkinnedScene>(L"images\\dice_skin.png"));
+	scenes.push_back(std::make_unique<CubeSkinnedScene>(L"images\\office_skin.jpg"));
 	//scenes.push_back(std::make_unique<CubeSkinnedScene>(L"images\\office_skin_lores.png"));
 	scenes.push_back(std::make_unique<TexWrapCubeScene>(L"images\\wood.jpg", 2.0f));
 
@@ -74,7 +74,18 @@ void Game::UpdateModel()
 		const auto e = wnd.kbd.ReadKey();
 		if (e.GetCode() == VK_TAB && e.IsPress())
 		{
-			CycleScenes();
+			if (wnd.kbd.KeyIsPressed(VK_SHIFT))
+			{
+				ReverseCycleScenes();
+			}
+			else
+			{
+				CycleScenes();
+			}
+		}
+		else if (e.GetCode() == VK_ESCAPE && e.IsPress())
+		{
+			wnd.Kill();
 		}
 	}
 
@@ -94,4 +105,16 @@ void Game::CycleScenes()
 	{
 		curScene = scenes.begin();
 	}
+}
+void Game::ReverseCycleScenes()
+{
+	if (curScene == scenes.begin())
+	{
+		curScene = scenes.end() - 1;
+	}
+	else
+	{
+		--curScene;
+	}
+	
 }
