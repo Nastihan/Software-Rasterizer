@@ -7,10 +7,15 @@
 
 class TexWrapCubeScene : public Scene {
 public:
+	TexWrapCubeScene(const std::wstring& texname, float texdim)
+		:
+		skinTex(Surface::FromFile(texname)),
+		cube(1.0f, texdim)
+	{
+	}
 	TexWrapCubeScene(float texdim)
 		: cube(1.0f, texdim)
 	{
-
 	}
 	virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override {
 		if (kbd.KeyIsPressed('Q'))
@@ -85,7 +90,7 @@ public:
 					triangles.vertices[triangles.indices[i * 3]],
 					triangles.vertices[triangles.indices[i * 3 + 1]],
 					triangles.vertices[triangles.indices[i * 3 + 2]],
-					tex);
+					skinTex);
 			}
 		}
 
@@ -94,7 +99,7 @@ public:
 private:
 	CubeScreenTransformer cst;
 	Cube cube;
-	Surface tex = Surface::FromFile(L"Images\\eye-100x100.png");
+	Surface skinTex = Surface::FromFile(L"Images\\eye-100x100.png");
 	static constexpr float dTheta = PI;
 	float offset_z = 0.0f;
 	float theta_x = 0.0f;
