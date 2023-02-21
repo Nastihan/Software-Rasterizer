@@ -144,9 +144,13 @@
     <ClInclude Include="ConHexScene.h" />
     <ClInclude Include="ConHexWireScene.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="CubeFolded.h" />
+    <ClInclude Include="CubeFoldedWrap.h" />
     <ClInclude Include="CubeOrderScene.h" />
     <ClInclude Include="CubeScreenTransformer.h" />
     <ClInclude Include="DXErr.h" />
+    <ClInclude Include="FoldedCubeScene.h" />
+    <ClInclude Include="FoldedCubeWrapScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GDIPlusManager.h" />
     <ClInclude Include="Graphics.h" />

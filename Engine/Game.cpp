@@ -27,6 +27,9 @@
 #include "XMutualScene.h"
 #include "TexCubeScene.h"
 #include "TexWrapCubeScene.h"
+#include "FoldedCubeScene.h"
+#include "FoldedCubeWrapScene.h"
+
 
 Game::Game( MainWindow& wnd )
 	:
@@ -38,10 +41,13 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<ConHexScene>());
 	//scenes.push_back(std::make_unique<ConHexWireScene>());
 	//scenes.push_back(std::make_unique<XMutualScene>());
-	scenes.push_back(std::make_unique<TexCubeScene>());
-	scenes.push_back(std::make_unique<TexCubeScene>(2.0f));
-	scenes.push_back(std::make_unique<TexWrapCubeScene>(2.0f));
-	scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
+	//scenes.push_back(std::make_unique<TexCubeScene>());
+	//scenes.push_back(std::make_unique<TexCubeScene>(2.0f));
+	//scenes.push_back(std::make_unique<TexWrapCubeScene>(2.0f));
+	//scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
+	//scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
+	//scenes.push_back(std::make_unique<FoldedCubeScene>());
+	scenes.push_back(std::make_unique < FoldedCubeWrapScene>());
 
 	curScene = scenes.begin();
 }
