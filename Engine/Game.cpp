@@ -44,12 +44,11 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<TexCubeScene>());
 	//scenes.push_back(std::make_unique<TexCubeScene>(2.0f));
 	//scenes.push_back(std::make_unique<TexWrapCubeScene>(2.0f));
-	scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
-	
+	//scenes.push_back(std::make_unique<TexWrapCubeScene>(6.0f));
 	//scenes.push_back(std::make_unique<FoldedCubeScene>());
 	//scenes.push_back(std::make_unique < FoldedCubeWrapScene>());
 	scenes.push_back(std::make_unique < CubeSkinnedScene>(L"images\\dice_skin.png"));
-	scenes.push_back(std::make_unique<CubeSkinnedScene>(L"images\\office_skin.jpg"));
+	//scenes.push_back(std::make_unique<CubeSkinnedScene>(L"images\\office_skin.jpg"));
 	//scenes.push_back(std::make_unique<CubeSkinnedScene>(L"images\\office_skin_lores.png"));
 	scenes.push_back(std::make_unique<TexWrapCubeScene>(L"images\\wood.jpg", 2.0f));
 
