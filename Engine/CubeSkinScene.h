@@ -54,12 +54,12 @@ public:
 	}
 	virtual void Draw() override
 	{
-		// generate rotation matrix from euler angles
-		// translation from offset
+		// generate rotation matrix 
 		const Mat3 rot =
 			Mat3::RotationX(theta_x) *
 			Mat3::RotationY(theta_y) *
 			Mat3::RotationZ(theta_z);
+		// translation
 		const Vec3 trans = { 0.0f,0.0f,offset_z };
 		// set pipeline transform
 		pipeline.BindRotation(rot);
