@@ -154,6 +154,7 @@
     <ClInclude Include="Mat2.h" />
     <ClInclude Include="Mat3.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Pipeline.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
