@@ -7,12 +7,13 @@ public:
 	class Vertex {
 		public:
 
-			Vertex(Vec3 pos, Vec2 t)
-				: pos(pos),
-				t(t)
+			Vertex(Vec3 pos)
+				: pos(pos)
 			{
 
 			}
+			// this enables template functions clone a vertex
+			// while changing the pos only
 			Vertex(const Vec3& pos, const Vertex& src)
 				:
 				t(src.t),
@@ -23,13 +24,6 @@ public:
 				t(t),
 				pos(pos)
 			{}
-			Vertex InterpolateTo(const Vertex& dest, float alpha) const
-			{
-				return {
-					pos.InterpolateTo(dest.pos,alpha),
-					t.InterpolateTo(dest.t,alpha)
-				};
-			}
 			Vertex& operator+=(const Vertex& rhs)
 			{
 				pos += rhs.pos;
