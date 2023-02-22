@@ -20,6 +20,7 @@
 ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "CubeSkinScene.h"
 
 
 Game::Game( MainWindow& wnd )
@@ -27,7 +28,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd )
 {
-
+	scenes.push_back(std::make_unique<CubeSkinScene>(gfx, L"images\\office_skin.jpg"));
 	curScene = scenes.begin();
 }
 
@@ -70,7 +71,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {	
-	(*curScene)->Draw(gfx);
+	(*curScene)->Draw();
 }
 
 // CycleScenes function to cycle through scenes
