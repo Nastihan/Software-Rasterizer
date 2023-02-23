@@ -3,19 +3,21 @@
 #include "Cube.h"
 #include "Mat3.h"
 #include "Pipeline.h"
+#include "TextureEffect.h"
 
 // scene demonstrating skinned cube
-class CubeSkinScene : public Scene
-{
+class CubeSkinScene : public Scene{
+
 public:
+	typedef Pipeline<TextureEffect> Pipeline;
 	typedef Pipeline::Vertex Vertex;
-public:
+
 	CubeSkinScene(Graphics& gfx, const std::wstring& filename)
 		:
 		itlist(Cube::GetSkinned<Vertex>()),
 		pipeline(gfx)
 	{
-		pipeline.BindTexture(filename);
+		pipeline.effect.ps.BindTexture(filename);
 	}
 	virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override
 	{
