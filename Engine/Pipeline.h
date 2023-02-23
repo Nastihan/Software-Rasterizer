@@ -48,7 +48,7 @@ private:
 		std::vector<Vertex> verticesout;
 
 		for (auto v : vertices) {
-			verticesout.emplace_back(v.pos * rotation + translation, v.t);
+			verticesout.emplace_back(v.pos * rotation + translation, v);
 		}
 
 		AssembleTriangles(verticesout, indices);
