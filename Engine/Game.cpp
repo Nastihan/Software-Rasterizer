@@ -23,6 +23,7 @@
 #include "CubeSkinScene.h"
 #include "CubeVertexColorScene.h"
 #include "CubeSolidScene.h"
+#include "DoubleCubeScene.h"
 
 
 Game::Game( MainWindow& wnd )
@@ -30,9 +31,11 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd )
 {
-	scenes.push_back(std::make_unique<CubeVertexColorScene>(gfx));
-	scenes.push_back(std::make_unique<CubeSolidScene>(gfx));
-	scenes.push_back(std::make_unique<CubeSkinScene>(gfx, L"images\\office_skin.jpg"));
+	//scenes.push_back(std::make_unique<CubeVertexColorScene>(gfx));
+	//scenes.push_back(std::make_unique<CubeSolidScene>(gfx));
+	//scenes.push_back(std::make_unique<CubeSkinScene>(gfx, L"images\\office_skin.jpg"));
+	scenes.push_back(std::make_unique<DoubleCubeScene>(gfx));
+
 	curScene = scenes.begin();
 }
 
