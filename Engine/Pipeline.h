@@ -86,9 +86,9 @@ private:
 	void PostProcessTriangleVertices(Triangle<Vertex>& triangle)
 	{
 
-		cst.Transform(triangle.v0.pos);
-		cst.Transform(triangle.v1.pos);
-		cst.Transform(triangle.v2.pos);
+		cst.Transform(triangle.v0);
+		cst.Transform(triangle.v1);
+		cst.Transform(triangle.v2);
 		// perspective division and screen transformation done
 
 		// draw the triangle
@@ -205,8 +205,12 @@ private:
 
 			for (int x = xStart; x < xEnd; x++, iLine += diLine)
 			{
+				const float z = 1.0f / iLine.pos.z;
+
+				const auto attr = iLine * z;
+
 				// perform texture lookup, clamp, and write pixel
-				gfx.PutPixel(x, y,effect.ps(iLine));
+				gfx.PutPixel(x, y,effect.ps(attr));
 			}
 		}
 	}
