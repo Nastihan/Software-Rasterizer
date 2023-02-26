@@ -7,6 +7,7 @@
 #include "ChiliMath.h"
 #include "Mat3.h"
 #include <algorithm>
+#include "ZBuffer.h"
 
 
 
@@ -21,10 +22,12 @@ public:
 	typedef typename Effect::Vertex Vertex;
 public:
 	Pipeline(Graphics& gfx)
-		: gfx(gfx)
+		: gfx(gfx),
+		zb(gfx.ScreenWidth, gfx.ScreenHeight)
 	{
 
 	}
+	
 	void Draw(IndexedTriangleList<Vertex>& triList)
 	{
 		ProcessVertices(triList.vertices, triList.indices);
@@ -37,7 +40,11 @@ public:
 	{
 		translation = translation_in;
 	}
-	
+	// ZBuffer resets after each frame
+	void BeginFrame()
+	{
+		zb.Clear();
+	}
 
 	// vertex processing function
 	// applies rotations, and translations on the vertices and then calls the triangle assembler
@@ -207,10 +214,14 @@ private:
 			{
 				const float z = 1.0f / iLine.pos.z;
 
-				const auto attr = iLine * z;
+				// depth culling
+				// z rejection / update of z buffer
+				if (zb.TestAndSet(x, y, z)) {
+					const auto attr = iLine * z;
 
-				// perform texture lookup, clamp, and write pixel
-				gfx.PutPixel(x, y,effect.ps(attr));
+					// perform texture lookup, clamp, and write pixel
+					gfx.PutPixel(x, y, effect.ps(attr));
+				}
 			}
 		}
 	}
@@ -221,5 +232,6 @@ private:
 	CubeScreenTransformer cst;
 	Mat3 rotation;
 	Vec3 translation;
+	ZBuffer zb;
 	
 };

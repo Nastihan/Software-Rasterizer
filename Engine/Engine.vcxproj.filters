@@ -117,8 +117,11 @@
     <ClInclude Include="CubeSolidScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="DoubleCubeScene.h">
+    <ClInclude Include="ZBuffer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleCubeScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
