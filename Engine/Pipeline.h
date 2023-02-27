@@ -20,6 +20,8 @@ class Pipeline {
 	
 public:
 	typedef typename Effect::Vertex Vertex;
+	typedef typename Effect::VertexShader::Output VSOut;
+
 public:
 	Pipeline(Graphics& gfx)
 		: gfx(gfx),
@@ -32,14 +34,7 @@ public:
 	{
 		ProcessVertices(triList.vertices, triList.indices);
 	}
-	void BindRotation(const Mat3& rotation_in)
-	{
-		rotation = rotation_in;
-	}
-	void BindTranslation(const Vec3& translation_in)
-	{
-		translation = translation_in;
-	}
+	
 	// ZBuffer resets after each frame
 	void BeginFrame()
 	{
@@ -52,18 +47,18 @@ private:
 	void ProcessVertices(std::vector<Vertex>& vertices, const std::vector<size_t>& indices) {
 
 
-		std::vector<Vertex> verticesout;
+		std::vector<VSOut> verticesOut(vertices.size());
 
-		for (auto v : vertices) {
-			verticesout.emplace_back(v.pos * rotation + translation, v);
-		}
+		std::transform(vertices.begin(), vertices.end(),
+			verticesOut.begin(),
+			effect.vs);
 
-		AssembleTriangles(verticesout, indices);
+		AssembleTriangles(verticesOut, indices);
 	}
 	// triangle assembly function
 	// assembles indexed vertex stream into triangles and passes them to thr triangle processing function
 	// does the backface culling
-	void AssembleTriangles(const std::vector<Vertex>& vertices, const std::vector<size_t>& indices) {
+	void AssembleTriangles(const std::vector<VSOut>& vertices, const std::vector<size_t>& indices) {
 
 		// assemble triangles in the stream and process
 		for (size_t i = 0, end = indices.size() / 3;
@@ -83,14 +78,14 @@ private:
 	}
 	// triangle processing function
 	// takes 3 vertices to generate triangle and calls the post-processing function
-	void ProcessTriangle(const Vertex& v0, const Vertex& v1, const Vertex& v2)
+	void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2)
 	{
 		// left for later (geometary shader)
-		PostProcessTriangleVertices(Triangle<Vertex>{ v0, v1, v2 });
+		PostProcessTriangleVertices(Triangle<VSOut>{ v0, v1, v2 });
 	}
 	// vertex post-processing function
 	// performs perspective division and screen transformation on the vertices and calls the draw function
-	void PostProcessTriangleVertices(Triangle<Vertex>& triangle)
+	void PostProcessTriangleVertices(Triangle<VSOut>& triangle)
 	{
 
 		cst.Transform(triangle.v0);
@@ -101,7 +96,7 @@ private:
 		// draw the triangle
 		DrawTriangle(triangle);
 	}
-	void DrawTriangle(const Triangle<Vertex>& triangle) {
+	void DrawTriangle(const Triangle<VSOut>& triangle) {
 
 		const Vertex* pv0 = &triangle.v0;
 		const Vertex* pv1 = &triangle.v1;
@@ -143,7 +138,7 @@ private:
 			}
 		}
 	}
-	void DrawFlatTopTriangle(const Vertex& it0,
+	void DrawFlatTopTriangle(const VSOut& it0,
 		const Vertex& it1,
 		const Vertex& it2)
 	{
@@ -160,7 +155,7 @@ private:
 
 		DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
 	}
-	void DrawFlatBottomTriangle(const Vertex& it0,
+	void DrawFlatBottomTriangle(const VSOut& it0,
 		const Vertex& it1,
 		const Vertex& it2) {
 		// calculate delta_y 
@@ -178,7 +173,7 @@ private:
 
 	}
 
-	void DrawFlatTriangle(const Vertex& it0,
+	void DrawFlatTriangle(const VSOut& it0,
 		const Vertex& it1,
 		const Vertex& it2,
 		const Vertex& dv0,

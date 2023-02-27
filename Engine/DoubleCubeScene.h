@@ -75,8 +75,8 @@ public:
 			// translation
 			const Vec3 trans = { 0.0f,0.0f,2.0f };
 			// set pipeline transform
-			pipeline.BindRotation(rot);
-			pipeline.BindTranslation(trans);
+			pipeline.effect.vs.BindRotation(rot);
+			pipeline.effect.vs.BindTranslation(trans);
 			// render triangles
 			pipeline.Draw(itlist);
 		}
@@ -91,8 +91,8 @@ public:
 			// translation
 			const Vec3 trans = { 0.0f,0.0f,offset_z };
 			// set pipeline transform
-			pipeline.BindRotation(rot);
-			pipeline.BindTranslation(trans);
+			pipeline.effect.vs.BindRotation(rot);
+			pipeline.effect.vs.BindTranslation(trans);
 			// render triangles
 			pipeline.Draw(itlist);
 		}

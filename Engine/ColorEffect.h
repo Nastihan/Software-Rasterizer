@@ -1,6 +1,6 @@
 #pragma once
 #include "Pipeline.h"
-
+#include "DefaultVertexShader.h"
 class ColorEffect 
 {
 public:
@@ -71,6 +71,9 @@ public:
 			// Color
 			Vec3 color;
 	};
+
+	typedef DefaultVertexShader<Vertex> VertexShader;
+
 	class PixelShader
 	{
 		public:
@@ -83,5 +86,5 @@ public:
 	};
 public:
 	PixelShader ps;
-
+	VertexShader vs;
 };

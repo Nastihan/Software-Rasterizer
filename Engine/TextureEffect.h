@@ -1,5 +1,6 @@
 #pragma once
 #include "Pipeline.h"
+#include "DefaultVertexShader.h"
 
 class TextureEffect {
 public:
@@ -69,6 +70,9 @@ public:
 		// Texture coordinate
 		Vec2 t;
 	};
+
+	typedef DefaultVertexShader<Vertex> VertexShader;
+
 	class PixelShader
 	{
 	public:
@@ -97,4 +101,5 @@ public:
 	};
 public:
 	PixelShader ps;
+	VertexShader vs;
 };
