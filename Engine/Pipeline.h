@@ -98,9 +98,9 @@ private:
 	}
 	void DrawTriangle(const Triangle<VSOut>& triangle) {
 
-		const Vertex* pv0 = &triangle.v0;
-		const Vertex* pv1 = &triangle.v1;
-		const Vertex* pv2 = &triangle.v2;
+		const VSOut* pv0 = &triangle.v0;
+		const VSOut* pv1 = &triangle.v1;
+		const VSOut* pv2 = &triangle.v2;
 
 		// Sorting vec2 pointers by y
 		if (pv1->pos.y < pv0->pos.y) std::swap(pv0, pv1);
@@ -156,8 +156,8 @@ private:
 		DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
 	}
 	void DrawFlatBottomTriangle(const VSOut& it0,
-		const Vertex& it1,
-		const Vertex& it2) {
+		const VSOut& it1,
+		const VSOut& it2) {
 		// calculate delta_y 
 		const float delta_y = it2.pos.y - it0.pos.y;
 
@@ -174,14 +174,14 @@ private:
 	}
 
 	void DrawFlatTriangle(const VSOut& it0,
-		const Vertex& it1,
-		const Vertex& it2,
-		const Vertex& dv0,
-		const Vertex& dv1,
-		Vertex itEdge1)
+		const VSOut& it1,
+		const VSOut& it2,
+		const VSOut& dv0,
+		const VSOut& dv1,
+		VSOut itEdge1)
 	{
 		// create edge interpolant for left edge (always v0)
-		Vertex itEdge0 = it0;
+		VSOut itEdge0 = it0;
 
 		// Calculate first and last scanline
 		const int yStart = (int)ceil(it0.pos.y - 0.5);
