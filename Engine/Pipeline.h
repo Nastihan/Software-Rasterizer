@@ -124,7 +124,7 @@ private:
 			// find alpha too find the spilitting vertex
 			const float alpha = (pv1->pos.y - pv0->pos.y) / (pv2->pos.y - pv0->pos.y);
 
-			const Vertex vi = interpolate(*pv0, *pv2, alpha);
+			const VSOut vi = interpolate(*pv0, *pv2, alpha);
 
 			if (pv1->pos.x < vi.pos.x) // major right
 			{
@@ -139,19 +139,19 @@ private:
 		}
 	}
 	void DrawFlatTopTriangle(const VSOut& it0,
-		const Vertex& it1,
-		const Vertex& it2)
+		const VSOut& it1,
+		const VSOut& it2)
 	{
 		// calculate delta_y 
 		const float delta_y = it2.pos.y - it0.pos.y;
 
 		// calulcate dVertex / dy
 		// change in interpolant for every 1 change in y
-		const Vertex dit0 = (it2 - it0) / delta_y;
-		const Vertex dit1 = (it2 - it1) / delta_y;
+		const auto dit0 = (it2 - it0) / delta_y;
+		const auto dit1 = (it2 - it1) / delta_y;
 
 		// create edge interpolant
-		Vertex itEdge1 = it1;
+		auto itEdge1 = it1;
 
 		DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
 	}
@@ -163,11 +163,11 @@ private:
 
 		// calulcate dVertex / dy
 		// change in interpolant for every 1 change in y
-		const Vertex dit0 = (it1 - it0) / delta_y;
-		const Vertex dit1 = (it2 - it0) / delta_y;
+		const auto dit0 = (it1 - it0) / delta_y;
+		const auto dit1 = (it2 - it0) / delta_y;
 
 		// create edge interpolant
-		Vertex itEdge1 = it0;
+		auto itEdge1 = it0;
 
 		DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
 
@@ -181,7 +181,7 @@ private:
 		VSOut itEdge1)
 	{
 		// create edge interpolant for left edge (always v0)
-		VSOut itEdge0 = it0;
+		auto itEdge0 = it0;
 
 		// Calculate first and last scanline
 		const int yStart = (int)ceil(it0.pos.y - 0.5);
