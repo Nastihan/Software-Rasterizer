@@ -99,9 +99,9 @@ private:
 	}
 	void DrawTriangle(const Triangle<GSOut>& triangle) {
 
-		const VSOut* pv0 = &triangle.v0;
-		const VSOut* pv1 = &triangle.v1;
-		const VSOut* pv2 = &triangle.v2;
+		const GSOut* pv0 = &triangle.v0;
+		const GSOut* pv1 = &triangle.v1;
+		const GSOut* pv2 = &triangle.v2;
 
 		// Sorting vec2 pointers by y
 		if (pv1->pos.y < pv0->pos.y) std::swap(pv0, pv1);
@@ -125,7 +125,7 @@ private:
 			// find alpha too find the spilitting vertex
 			const float alpha = (pv1->pos.y - pv0->pos.y) / (pv2->pos.y - pv0->pos.y);
 
-			const VSOut vi = interpolate(*pv0, *pv2, alpha);
+			const auto vi = interpolate(*pv0, *pv2, alpha);
 
 			if (pv1->pos.x < vi.pos.x) // major right
 			{
