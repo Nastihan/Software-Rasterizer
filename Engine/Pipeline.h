@@ -21,6 +21,7 @@ class Pipeline {
 public:
 	typedef typename Effect::Vertex Vertex;
 	typedef typename Effect::VertexShader::Output VSOut;
+	typedef typename Effect::GeometryShader::Output GSOut;
 
 public:
 	Pipeline(Graphics& gfx)
@@ -72,20 +73,20 @@ private:
 			if ((v1.pos - v0.pos).CrossProd(v2.pos - v0.pos) * v0.pos <= 0.0f)
 			{
 				// process 3 vertices into a triangle
-				ProcessTriangle(v0, v1, v2);
+				ProcessTriangle(v0, v1, v2,i);
 			}
 		}
 	}
 	// triangle processing function
 	// takes 3 vertices to generate triangle and calls the post-processing function
-	void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2)
+	void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2, size_t triangle_index)
 	{
-		// left for later (geometary shader)
-		PostProcessTriangleVertices(Triangle<VSOut>{ v0, v1, v2 });
+		// generate triangle from 3 vertices using geometry shader 
+		PostProcessTriangleVertices(effect.gs(v0, v1, v2, triangle_index));
 	}
 	// vertex post-processing function
 	// performs perspective division and screen transformation on the vertices and calls the draw function
-	void PostProcessTriangleVertices(Triangle<VSOut>& triangle)
+	void PostProcessTriangleVertices(Triangle<GSOut>& triangle)
 	{
 
 		cst.Transform(triangle.v0);
@@ -96,7 +97,7 @@ private:
 		// draw the triangle
 		DrawTriangle(triangle);
 	}
-	void DrawTriangle(const Triangle<VSOut>& triangle) {
+	void DrawTriangle(const Triangle<GSOut>& triangle) {
 
 		const VSOut* pv0 = &triangle.v0;
 		const VSOut* pv1 = &triangle.v1;
@@ -138,9 +139,9 @@ private:
 			}
 		}
 	}
-	void DrawFlatTopTriangle(const VSOut& it0,
-		const VSOut& it1,
-		const VSOut& it2)
+	void DrawFlatTopTriangle(const GSOut& it0,
+		const GSOut& it1,
+		const GSOut& it2)
 	{
 		// calculate delta_y 
 		const float delta_y = it2.pos.y - it0.pos.y;
@@ -155,9 +156,9 @@ private:
 
 		DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
 	}
-	void DrawFlatBottomTriangle(const VSOut& it0,
-		const VSOut& it1,
-		const VSOut& it2) {
+	void DrawFlatBottomTriangle(const GSOut& it0,
+		const GSOut& it1,
+		const GSOut& it2) {
 		// calculate delta_y 
 		const float delta_y = it2.pos.y - it0.pos.y;
 
@@ -173,12 +174,12 @@ private:
 
 	}
 
-	void DrawFlatTriangle(const VSOut& it0,
-		const VSOut& it1,
-		const VSOut& it2,
-		const VSOut& dv0,
-		const VSOut& dv1,
-		VSOut itEdge1)
+	void DrawFlatTriangle(const GSOut& it0,
+		const GSOut& it1,
+		const GSOut& it2,
+		const GSOut& dv0,
+		const GSOut& dv1,
+		GSOut itEdge1)
 	{
 		// create edge interpolant for left edge (always v0)
 		auto itEdge0 = it0;

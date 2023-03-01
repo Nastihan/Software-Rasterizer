@@ -1,5 +1,7 @@
 #pragma once
 #include "Pipeline.h"
+#include "DefaultGeometryShader.h"
+
 class VertexPositionColorEffect
 {
 public:
@@ -59,6 +61,8 @@ public:
 	public:
 		Vec3 pos;
 	};
+
+	
 
 	class VertexShader {
 	public:
@@ -142,6 +146,9 @@ public:
 		Mat3 rotation;
 		Vec3 translation;
 	};
+
+	typedef DefaultGeometryShader<VertexShader::Output> GeometryShader;
+
 	class PixelShader
 	{
 	public:
@@ -154,4 +161,5 @@ public:
 public:
 	PixelShader ps;
 	VertexShader vs;
+	GeometryShader gs;
 };

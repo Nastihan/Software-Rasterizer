@@ -1,5 +1,5 @@
 #pragma once
-template<class Vertex>
+template<typename Vertex>
 class DefaultVertexShader
 {
 public:

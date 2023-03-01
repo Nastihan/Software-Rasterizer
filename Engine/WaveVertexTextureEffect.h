@@ -99,6 +99,9 @@ public:
 		float freqScroll = 5.0f;
 		float amplitude = 0.05f;
 	};
+
+	typedef DefaultGeometryShader<VertexShader::Output> GeometryShader;
+
 	class PixelShader
 	{
 	public:
@@ -128,4 +131,5 @@ public:
 public:
 	PixelShader ps;
 	VertexShader vs;
+	GeometryShader gs;
 };
