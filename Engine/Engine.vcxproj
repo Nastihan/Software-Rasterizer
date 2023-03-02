@@ -142,6 +142,7 @@
     <ClInclude Include="ColorEffect.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="CubeFlatIndependentScene.h" />
     <ClInclude Include="CubeScreenTransformer.h" />
     <ClInclude Include="CubeSkinScene.h" />
     <ClInclude Include="CubeSolidGeometryScene.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
+    <ClInclude Include="VertexFlatEffect.h" />
     <ClInclude Include="VertexPositionColorEffect.h" />
     <ClInclude Include="VertexWaveScene.h" />
     <ClInclude Include="WaveVertexTextureEffect.h" />
