@@ -3,18 +3,18 @@
 #include "Cube.h"
 #include "Mat3.h"
 #include "Pipeline.h"
-#include "VertexFlatEffect.h"
+#include "GeometryFlatEffect.h"
 
 // scene demonstrating skinned cube
-class CubeFlatIndependentScene : public Scene {
+class GeometryFlatScene : public Scene {
 
 public:
-	typedef Pipeline<VertexFlatEffect> Pipeline;
+	typedef Pipeline<GeometryFlatEffect> Pipeline;
 	typedef Pipeline::Vertex Vertex;
 
-	CubeFlatIndependentScene(Graphics& gfx)
+	GeometryFlatScene(Graphics& gfx, IndexedTriangleList<Vertex> tl)
 		:
-		itlist(Cube::GetIndependentFacesNormals<Vertex>()),
+		itlist(std::move(tl)), 
 		pipeline(gfx)
 	{
 	}
@@ -94,7 +94,7 @@ public:
 		// set pipeline transform
 		pipeline.effect.vs.BindRotation(rot);
 		pipeline.effect.vs.BindTranslation(trans);
-		pipeline.effect.vs.SetLightDirection(light_dir * rot_phi);
+		pipeline.effect.gs.SetLightDirection(light_dir * rot_phi);
 
 		// render triangles
 		pipeline.Draw(itlist);

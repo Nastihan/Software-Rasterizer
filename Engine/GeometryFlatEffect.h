@@ -4,7 +4,7 @@
 #include "DefaultGeometryShader.h"
 
 
-class VertexFlatEffect {
+class GeometryFlatEffect {
 public:
 	class Vertex
 	{
@@ -16,18 +16,11 @@ public:
 		{}
 		Vertex(const Vec3& pos, const Vertex& src)
 			:
-			n(src.n),
-			pos(pos)
-		{}
-		Vertex(const Vec3& pos, const Vec3& n)
-			:
-			n(n),
 			pos(pos)
 		{}
 		Vertex& operator+=(const Vertex& rhs)
 		{
 			pos += rhs.pos;
-			n += rhs.n;
 			return *this;
 		}
 		Vertex operator+(const Vertex& rhs) const
@@ -37,7 +30,6 @@ public:
 		Vertex& operator-=(const Vertex& rhs)
 		{
 			pos -= rhs.pos;
-			n -= rhs.n;
 			return *this;
 		}
 		Vertex operator-(const Vertex& rhs) const
@@ -47,7 +39,6 @@ public:
 		Vertex& operator*=(float rhs)
 		{
 			pos *= rhs;
-			n *= rhs;
 			return *this;
 		}
 		Vertex operator*(float rhs) const
@@ -57,7 +48,6 @@ public:
 		Vertex& operator/=(float rhs)
 		{
 			pos /= rhs;
-			n /= rhs;
 			return *this;
 		}
 		Vertex operator/(float rhs) const
@@ -66,10 +56,11 @@ public:
 		}
 	public:
 		Vec3 pos;
-		Vec3 n;
 	};
 
-	class VertexShader 
+	typedef DefaultVertexShader<Vertex> VertexShader;
+
+	class GeometryShader
 	{
 	public:
 		class Output
@@ -131,26 +122,18 @@ public:
 			Color color;
 		};
 	public:
-		void BindRotation(const Mat3& rotation_in)
+		Triangle<Output> operator()(const VertexShader::Output& in0, const VertexShader::Output& in1, const VertexShader::Output& in2, size_t triangle_index) const
 		{
-			rotation = rotation_in;
-		}
-		void BindTranslation(const Vec3& translation_in)
-		{
-			translation = translation_in;
-		}
-
-		Output operator()(const Vertex& v) const
-		{
+			// calculat face normals
+			const auto n = ((in1.pos - in0.pos).CrossProd(in2.pos - in0.pos)).GetNormalized();
 			// calculate intensity 
 			// Intensity = diffuse * sin(theta) ------->>>>> diffuse * (cos(90-theta)) -------? cos = dotproduct
 			// vertices may rotate 
-			const auto d = diffuse * std::max(0.0f, -(v.n * rotation) * dir);
+			const auto d = diffuse * std::max(0.0f, -n * dir);
 			// add diffuse+ambient, filter by material color, saturate and scale
-			const auto c = color.GetHadamard(d + ambient).Saturate() * 255;
-			return{ v.pos * rotation + translation,Color(c) };
+			const auto c = Color(color.GetHadamard(d + ambient).Saturate() * 255.0f);
+			return{ {in0.pos,c},{in1.pos,c},{in2.pos,c} };
 		}
-
 		void SetDiffuseLight(const Vec3& d)
 		{
 			diffuse = { d.x,d.y,d.z };
@@ -168,7 +151,6 @@ public:
 		{
 			color = Vec3(c);
 		}
-
 	private:
 		Mat3 rotation;
 		Vec3 translation;
@@ -177,9 +159,6 @@ public:
 		Vec3 ambient = { 0.1f,0.1f,0.1f };
 		Vec3 color = { 0.8f,0.85f,1.0f };
 	};
-	
-	
-	typedef DefaultGeometryShader<VertexShader::Output> GeometryShader;
 
 	class PixelShader
 	{
