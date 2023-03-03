@@ -31,6 +31,7 @@
 #include "GeometryFlatScene.h"
 
 
+
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
@@ -44,9 +45,7 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<CubeVertexPositionColorScene>(gfx));
 	//scenes.push_back(std::make_unique<CubeSolidGeometryScene>(gfx));
 	//scenes.push_back(std::make_unique<CubeFlatIndependentScene>(gfx));
-	scenes.push_back(std::make_unique<GeometryFlatScene>(gfx, Cube::GetPlain<GeometryFlatScene::Vertex>()));
-
-
+	scenes.push_back(std::make_unique<GeometryFlatScene>(gfx,IndexedTriangleList<GeometryFlatScene::Vertex>::Load("models\\bunny.obj")));
 
 	curScene = scenes.begin();
 }
