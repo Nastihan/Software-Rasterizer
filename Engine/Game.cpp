@@ -41,7 +41,7 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<CubeSolidScene>(gfx));
 	//scenes.push_back(std::make_unique<CubeSkinScene>(gfx, L"images\\office_skin.jpg"));
 	//scenes.push_back(std::make_unique<DoubleCubeScene>(gfx));
-	//scenes.push_back(std::make_unique<VertexWaveScene>(gfx));
+	scenes.push_back(std::make_unique<VertexWaveScene>(gfx));
 	//scenes.push_back(std::make_unique<CubeVertexPositionColorScene>(gfx));
 	//scenes.push_back(std::make_unique<CubeSolidGeometryScene>(gfx));
 	//scenes.push_back(std::make_unique<CubeFlatIndependentScene>(gfx));
