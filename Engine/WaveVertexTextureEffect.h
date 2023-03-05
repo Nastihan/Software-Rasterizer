@@ -177,8 +177,7 @@ public:
 			const auto n = ((in1.pos - in0.pos).CrossProd(in2.pos - in0.pos)).GetNormalized();
 			// calculate intensity 
 			// Intensity = diffuse * sin(theta) ------->>>>> diffuse * (cos(90-theta)) -------? cos = dotproduct
-			// vertices may rotate 
-			// add diffuse+ambient, filter by material color, saturate and scale
+			// add diffuse+ambient, saturate
 			const auto l = std::min(1.0f, diffuse * std::max(0.0f, -n * dir) + ambient);
 			return{ { in0.pos,in0.t,l },{ in1.pos,in1.t,l },{ in2.pos,in2.t,l } };
 		}
