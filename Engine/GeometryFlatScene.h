@@ -17,6 +17,8 @@ public:
 		itlist(std::move(tl)), 
 		pipeline(gfx)
 	{
+		itlist.AdjustToTrueCenter();
+		offset_z = itlist.GetRadius() * 1.6f;
 	}
 	virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override
 	{
