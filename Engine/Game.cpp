@@ -29,6 +29,7 @@
 #include "CubeSolidGeometryScene.h"
 #include "CubeFlatIndependentScene.h"
 #include "GeometryFlatScene.h"
+#include "Sphere.h"
 
 
 
@@ -44,8 +45,9 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<VertexWaveScene>(gfx));
 	//scenes.push_back(std::make_unique<CubeVertexPositionColorScene>(gfx));
 	//scenes.push_back(std::make_unique<CubeSolidGeometryScene>(gfx));
-	scenes.push_back(std::make_unique<CubeFlatIndependentScene>(gfx));
+	//scenes.push_back(std::make_unique<CubeFlatIndependentScene>(gfx));
 	//scenes.push_back(std::make_unique<GeometryFlatScene>(gfx,IndexedTriangleList<GeometryFlatScene::Vertex>::Load("models\\bunny.obj")));
+	scenes.push_back(std::make_unique<GeometryFlatScene>(gfx, Sphere::GetPlain<GeometryFlatScene::Vertex>()));
 
 	curScene = scenes.begin();
 }
