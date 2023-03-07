@@ -5,7 +5,7 @@
 #include "Pipeline.h"
 #include "GouraudEffect.h"
 
-// scene demonstrating skinned cube
+
 class GouraudScene : public Scene {
 
 public:

@@ -49,7 +49,9 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<CubeFlatIndependentScene>(gfx));
 	//scenes.push_back(std::make_unique<GeometryFlatScene>(gfx,IndexedTriangleList<GeometryFlatScene::Vertex>::Load("models\\bunny.obj")));
 	//scenes.push_back(std::make_unique<GeometryFlatScene>(gfx, Sphere::GetPlain<GeometryFlatScene::Vertex>()));
-	scenes.push_back(std::make_unique<GouraudScene>(gfx, Sphere::GetPlainNormals<GouraudScene::Vertex>()));
+	scenes.push_back(std::make_unique<GouraudScene>(gfx, Sphere::GetPlainNormals<GouraudScene::Vertex>()));	
+	scenes.push_back(std::make_unique<GouraudScene>(gfx, IndexedTriangleList<GouraudScene::Vertex>::LoadNormals("Models\\suzanne.obj")));
+
 
 
 	curScene = scenes.begin();
