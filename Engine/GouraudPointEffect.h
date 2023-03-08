@@ -145,11 +145,11 @@ public:
 		{
 
 			const auto pos = v.pos * rotation + translation;
-
+			// light to object vector ***** bad naming****
 			const auto vecL = light_pos - pos;
 			const auto distance = vecL.Len();
 			const auto dir = vecL / distance;
-
+			// calculate attentuation
 			const auto attenuation = 1.0f /
 				(constant_attenuation + linear_attenuation * distance + quadradic_attenuation * sq(distance));
 

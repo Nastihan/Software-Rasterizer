@@ -130,12 +130,11 @@ public:
 		template<class Input>
 		Color operator()(const Input& in) const
 		{
-		
-
-			const auto vecL = light_pos - in.worldPos;
+					// light to object vector ***** bad naming****
+	const auto vecL = light_pos - in.worldPos;
 			const auto distance = vecL.Len();
 			const auto dir = vecL / distance;
-
+			// calculate attentuation
 			const auto attenuation = 1.0f /
 				(constant_attenuation + linear_attenuation * distance + quadradic_attenuation * sq(distance));
 
