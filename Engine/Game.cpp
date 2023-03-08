@@ -51,7 +51,7 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<GeometryFlatScene>(gfx, Sphere::GetPlain<GeometryFlatScene::Vertex>()));
 	//scenes.push_back(std::make_unique<GouraudScene>(gfx, Sphere::GetPlainNormals<GouraudScene::Vertex>()));	
 	scenes.push_back(std::make_unique<GouraudPointScene>(gfx, IndexedTriangleList<GouraudPointScene::Vertex>::LoadNormals("Models\\suzanne.obj")));
-
+	scenes.push_back(std::make_unique<GouraudPointScene>(gfx, Plane::GetNormals<GouraudPointScene::Vertex>(1)));
 
 
 	curScene = scenes.begin();
