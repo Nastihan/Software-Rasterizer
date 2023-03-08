@@ -159,6 +159,8 @@
     <ClInclude Include="GeometryFlatEffect.h" />
     <ClInclude Include="GeometryFlatScene.h" />
     <ClInclude Include="GouraudEffect.h" />
+    <ClInclude Include="GouraudPointEffect.h" />
+    <ClInclude Include="GouraudPointScene.h" />
     <ClInclude Include="GouraudScene.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IndexedTriangleList.h" />
