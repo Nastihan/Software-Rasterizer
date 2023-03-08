@@ -49,6 +49,14 @@ public:
 		}
 		return false;
 	}
+	int GetWidth()
+	{
+		return width;
+	}
+	int GetHeight()
+	{
+		return height;
+	}
 private:
 	int width;
 	int height;

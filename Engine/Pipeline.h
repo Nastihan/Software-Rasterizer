@@ -8,6 +8,8 @@
 #include "Mat3.h"
 #include <algorithm>
 #include "ZBuffer.h"
+#include <memory>
+
 
 
 
@@ -25,10 +27,15 @@ public:
 
 public:
 	Pipeline(Graphics& gfx)
-		: gfx(gfx),
-		zb(gfx.ScreenWidth, gfx.ScreenHeight)
+		: Pipeline(gfx,std::make_shared<ZBuffer>(gfx.ScreenWidth, gfx.ScreenHeight))
 	{
-
+	}
+	Pipeline(Graphics& gfx, std::shared_ptr<ZBuffer> pZb_in)
+		:
+		gfx(gfx),
+		pZb(std::move(pZb_in))
+	{
+		assert(pZb->GetHeight() == gfx.ScreenHeight && pZb->GetWidth() == gfx.ScreenWidth);
 	}
 	
 	void Draw(IndexedTriangleList<Vertex>& triList)
@@ -39,7 +46,7 @@ public:
 	// ZBuffer resets after each frame
 	void BeginFrame()
 	{
-		zb.Clear();
+		pZb->Clear();
 	}
 
 	// vertex processing function
@@ -212,7 +219,7 @@ private:
 
 				// depth culling
 				// z rejection / update of z buffer
-				if (zb.TestAndSet(x, y, z)) {
+				if (pZb->TestAndSet(x, y, z)) {
 					const auto attr = iLine * z;
 
 					// perform texture lookup, clamp, and write pixel
@@ -228,6 +235,6 @@ private:
 	CubeScreenTransformer cst;
 	Mat3 rotation;
 	Vec3 translation;
-	ZBuffer zb;
+	std::shared_ptr<ZBuffer> pZb;
 	
 };
