@@ -5,7 +5,7 @@
 #include "IndexedTriangleList.h"
 #include "Triangle.h"
 #include "ChiliMath.h"
-#include "Mat3.h"
+#include "Mat.h"
 #include <algorithm>
 #include "ZBuffer.h"
 #include <memory>

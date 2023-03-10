@@ -2,7 +2,7 @@
 #pragma once
 #include "Scene.h"
 #include "Cube.h"
-#include "Mat3.h"
+#include "Mat.h"
 #include "Pipeline.h"
 #include "PhongPointEffect.h"
 #include "SolidEffect.h"

@@ -1,7 +1,7 @@
 #pragma once
 #include "IndexedTriangleList.h"
 #include "Vec3.h"
-#include "Mat3.h"
+#include "Mat.h"
 
 
 class Sphere

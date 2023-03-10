@@ -167,8 +167,6 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mat.h" />
-    <ClInclude Include="Mat2.h" />
-    <ClInclude Include="Mat3.h" />
     <ClInclude Include="Miniball.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="PhongPointEffect.h" />
