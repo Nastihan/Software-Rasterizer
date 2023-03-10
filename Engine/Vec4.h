@@ -3,7 +3,7 @@
 #include "Vec3.h"
 
 template <typename T>
-class _Vec4 : public _Vec4<T>
+class _Vec4 : public _Vec3<T>
 {
 public:
 	_Vec4() {}
@@ -15,6 +15,11 @@ public:
 	_Vec4(const _Vec4& vect)
 		:
 		_Vec4(vect.x, vect.y, vect.z, vect.w)
+	{}
+	_Vec4( const _Vec3& v3,float w = 1.0f  )
+		:
+		_Vec3( v3 ),
+		w( w )
 	{}
 	template <typename T2>
 	explicit operator _Vec4<T2>() const
