@@ -1,6 +1,6 @@
 #pragma once
 #include "Graphics.h"
-#include "CubeScreenTransformer.h"
+#include "NDCScreenTransformer.h"
 #include "Surface.h"
 #include "IndexedTriangleList.h"
 #include "Triangle.h"
@@ -8,6 +8,7 @@
 #include "Mat.h"
 #include <algorithm>
 #include "ZBuffer.h"
+#include "Vec4.h"
 #include <memory>
 
 
@@ -215,24 +216,27 @@ private:
 
 			for (int x = xStart; x < xEnd; x++, iLine += diLine)
 			{
-				const float z = 1.0f / iLine.pos.z;
 
 				// depth culling
 				// z rejection / update of z buffer
-				if (pZb->TestAndSet(x, y, z)) {
-					const auto attr = iLine * z;
+				if (pZb->TestAndSet(x, y, iLine.pos.z))
+				{
+					 float w = 1.0f / iLine.pos.w;
 
-					// perform texture lookup, clamp, and write pixel
+					const auto attr = iLine * w;
+
 					gfx.PutPixel(x, y, effect.ps(attr));
+
 				}
 			}
+		
 		}
 	}
 public:
 	Effect effect;
 private:
 	Graphics& gfx;
-	CubeScreenTransformer cst;
+	NDCScreenTransformer cst;
 	Mat3 rotation;
 	Vec3 translation;
 	std::shared_ptr<ZBuffer> pZb;

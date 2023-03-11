@@ -93,13 +93,16 @@ public:
 	{
 		pipeline.BeginFrame();
 		
+		const auto proj = Mat4::Projection(2.0f, 2.0f, 1.0f, 10.0f);
 		// set pipeline transform
-		pipeline.effect.vs.BindTransformation(
+		pipeline.effect.vs.BindWorld(
 			Mat4::RotationX(theta_x) *
 			Mat4::RotationY(theta_y) *
 			Mat4::RotationZ(theta_z) *
 			Mat4::Translation(0.0f, 0.0f, offset_z)
 		);
+
+		pipeline.effect.vs.BindProjection(proj);
 
 		pipeline.effect.ps.SetLightPos({ lpos_x,lpos_y,lpos_z });
 
@@ -107,8 +110,8 @@ public:
 		pipeline.Draw(itlist);
 
 
-		Lpipeline.effect.vs.BindTranslation({ lpos_x,lpos_y,lpos_z });
-		Lpipeline.effect.vs.BindRotation(Mat3::Identity());
+		Lpipeline.effect.vs.BindWorld(Mat4::Translation(lpos_x, lpos_y, lpos_z));
+		Lpipeline.effect.vs.BindProjection(proj);
 		Lpipeline.Draw(lightIndicator);
 	}
 private:

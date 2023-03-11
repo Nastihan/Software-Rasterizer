@@ -1,10 +1,11 @@
 #pragma once
 #include "Vec3.h"
+#include "Vec4.h"
 #include "Graphics.h"
 
-class CubeScreenTransformer {
+class NDCScreenTransformer {
 public:
-	CubeScreenTransformer()
+	NDCScreenTransformer()
 		:
 	xFactor (float( Graphics::ScreenWidth / 2 )),
 	yFactor (float( Graphics::ScreenHeight / 2))
@@ -12,14 +13,14 @@ public:
 	}
 	template <typename Vertex>
 	Vertex& Transform(Vertex& v) const{
-		const float zInverse = 1.0f / v.pos.z;
+		const float wInverse = 1.0f / v.pos.w;
 
-		v *= zInverse;
+		v *= wInverse;
 
 		v.pos.x = (v.pos.x + 1.0f) * xFactor;
 		v.pos.y = (-v.pos.y + 1.0f) * yFactor;
 
-		v.pos.z = zInverse;
+		v.pos.w = wInverse;
 
 		return v;
 	}

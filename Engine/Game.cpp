@@ -20,19 +20,19 @@
 ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-#include "CubeSkinScene.h"
-#include "CubeVertexColorScene.h"
-#include "CubeSolidScene.h"
-#include "DoubleCubeScene.h"
-#include "VertexWaveScene.h"
-#include "CubeVertexPositionColorScene.h"
-#include "CubeSolidGeometryScene.h"
-#include "CubeFlatIndependentScene.h"
-#include "GeometryFlatScene.h"
-#include "Sphere.h"
-#include "GouraudScene.h"
-#include "GouraudPointScene.h"
-#include "PhongPointScene.h"
+//#include "CubeSkinScene.h"
+//#include "CubeVertexColorScene.h"
+//#include "CubeSolidScene.h"
+//#include "DoubleCubeScene.h"
+//#include "VertexWaveScene.h"
+//#include "CubeVertexPositionColorScene.h"
+//#include "CubeSolidGeometryScene.h"
+//#include "CubeFlatIndependentScene.h"
+//#include "GeometryFlatScene.h"
+//#include "Sphere.h"
+//#include "GouraudScene.h"
+//#include "GouraudPointScene.h"
+//#include "PhongPointScene.h"
 #include "SpecularPhongPointScene.h"
 
 
@@ -54,8 +54,8 @@ Game::Game( MainWindow& wnd )
 	//scenes.push_back(std::make_unique<GouraudScene>(gfx, Sphere::GetPlainNormals<GouraudScene::Vertex>()));	
 	//scenes.push_back(std::make_unique<GouraudPointScene>(gfx, IndexedTriangleList<GouraudPointScene::Vertex>::LoadNormals("Models\\suzanne.obj")));
 	//scenes.push_back(std::make_unique<PhongPointScene>(gfx, Plane::GetNormals<PhongPointScene::Vertex>(1)));
-	scenes.push_back(std::make_unique<GouraudScene>(gfx, IndexedTriangleList<GouraudScene::Vertex>::LoadNormals("Models\\suzanne.obj")));
-	scenes.push_back(std::make_unique<PhongPointScene>(gfx, IndexedTriangleList<PhongPointScene::Vertex>::LoadNormals("Models\\suzanne.obj")));
+	//scenes.push_back(std::make_unique<GouraudScene>(gfx, IndexedTriangleList<GouraudScene::Vertex>::LoadNormals("Models\\suzanne.obj")));
+	//scenes.push_back(std::make_unique<PhongPointScene>(gfx, IndexedTriangleList<PhongPointScene::Vertex>::LoadNormals("Models\\suzanne.obj")));
 	scenes.push_back(std::make_unique<SpecularPhongPointScene>(gfx, IndexedTriangleList<SpecularPhongPointScene::Vertex>::LoadNormals("Models\\suzanne.obj")));
 
 

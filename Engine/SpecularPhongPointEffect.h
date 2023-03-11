@@ -36,17 +36,17 @@ public:
 		{
 		public:
 			Output() = default;
-			Output(const Vec3& pos)
+			Output(const Vec4& pos)
 				:
 				pos(pos)
 			{}
-			Output(const Vec3& pos, const Output& src)
+			Output(const Vec4& pos, const Output& src)
 				:
 				n(src.n),
 				worldPos(src.worldPos),
 				pos(pos)
 			{}
-			Output(const Vec3& pos, const Vec3& n, const Vec3& worldPos)
+			Output(const Vec4& pos, const Vec3& n, const Vec3& worldPos)
 				:
 				n(n),
 				pos(pos),
@@ -98,21 +98,33 @@ public:
 			}
 		public:
 			Vec4 pos;
-			Vec4 n;
+			Vec3 n;
 			Vec3 worldPos;
 		};
 	public:
-		void BindTransformation(const Mat4& transformation)
+		void BindWorld(const Mat4& transformation_in)
 		{
-			this->transformation = transformation;
+			world = transformation_in;
+			worldProj = world * proj;
+		}
+		void BindProjection(const Mat4& transformation_in)
+		{
+			proj = transformation_in;
+			worldProj = world * proj;
+		}
+		const Mat4& GetProj() const
+		{
+			return proj;
 		}
 		Output operator()(const Vertex& v) const
 		{
-			const auto p = Vec4{ v.pos }*transformation;
-			return { p,Vec4{v.n,0.0f}*transformation , p};
+			const auto p4 = Vec4(v.pos);
+			return { p4 * worldProj,Vec4{ v.n,0.0f } *world,p4 * world };
 		}
 	private:
-		Mat4 transformation;
+		Mat4 world = Mat4::Identity();
+		Mat4 proj = Mat4::Identity();
+		Mat4 worldProj = Mat4::Identity();
 	};
 
 

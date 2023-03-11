@@ -3,6 +3,7 @@
 #include <cassert>
 #include <memory>
 #include <vector>
+#include <algorithm>
 
 class ZBuffer
 {
@@ -57,6 +58,10 @@ public:
 	{
 		return height;
 	}
+	/*auto GetMinMax() const
+	{
+		return std::minmax_element(pBuffer, pBuffer + width * height);
+	}*/
 private:
 	int width;
 	int height;
