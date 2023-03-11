@@ -195,6 +195,16 @@ public:
 			static_assert(false, "Bad dimensionality");
 		}
 	}
+	static _Mat Projection(T w,T h,T n, T f)
+	{
+		return
+		{
+			(T)2.0f * n / w,	(T)0,				(T)0,				(T)0,
+			(T)0.0f,			(T)2.0f * n / h,	(T)0,				(T)0,
+			(T)0.0,				(T)0.0,				f / (f - n),		(T)1.0,
+			(T)0.0,				(T)0.0,				-n * f / (f - n),	(T)0.0,
+		}
+	}
 public:
 
 	T elements[S][S];
