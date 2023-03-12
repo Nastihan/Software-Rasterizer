@@ -67,7 +67,10 @@ private:
 	// triangle assembly function
 	// assembles indexed vertex stream into triangles and passes them to thr triangle processing function
 	// does the backface culling
-	void AssembleTriangles(const std::vector<VSOut>& vertices, const std::vector<size_t>& indices) {
+	void AssembleTriangles(const std::vector<VSOut>& vertices, const std::vector<size_t>& indices) 
+	{
+
+		const auto eyepos = Vec4{ 0.0f,0.0f,0.0f,1.0f } *effect.vs.GetProj();
 
 		// assemble triangles in the stream and process
 		for (size_t i = 0, end = indices.size() / 3;
@@ -78,7 +81,7 @@ private:
 			const auto& v1 = vertices[indices[i * 3 + 1]];
 			const auto& v2 = vertices[indices[i * 3 + 2]];
 			// backface culling
-			if ((v1.pos - v0.pos).CrossProd(v2.pos - v0.pos) * v0.pos <= 0.0f)
+			if ((v1.pos - v0.pos).CrossProd(v2.pos - v0.pos) * Vec3(v0.pos - eyepos) <= 0.0f)
 			{
 				// process 3 vertices into a triangle
 				ProcessTriangle(v0, v1, v2,i);
