@@ -93,7 +93,9 @@ public:
 	{
 		pipeline.BeginFrame();
 		
-		const auto proj = Mat4::Projection(3.55555555556f, 2.0f, 1.0f, 10.0f);
+		const auto proj = Mat4::ProjectionFOV(130.0f, 1.77777777778f, 1.0f, 10.0f);
+
+		//const auto proj = Mat4::Projection(3.55555555556f, 2.0f, 1.0f, 10.0f);
 		// set pipeline transform
 		pipeline.effect.vs.BindWorld(
 			Mat4::RotationX(theta_x) *

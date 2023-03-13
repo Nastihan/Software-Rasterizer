@@ -205,6 +205,24 @@ public:
 			(T)0.0,				(T)0.0,				-n * f / (f - n),	(T)0.0,
 		};
 	}
+	
+	// ****reminder**** 
+	// ar( aspect ratio)
+	static _Mat ProjectionFOV(T fov, T ar, T n, T f)
+	{
+		// bad naming 
+		// will be changed later
+		const auto S = std::tan((fov / 2.0f) * ((T)PI / (T)180.0f));
+		const auto s = 1.0f / S; 
+		const auto h = s * ar;
+		return 
+		{
+				s,		(T)0.0,	(T)0.0,				(T)0.0,
+				(T)0.0,	h,		(T)0.0,				(T)0.0,
+				(T)0.0,	(T)0.0,	f / (f - n),		(T)1.0,
+				(T)0.0,	(T)0.0,	-n * f / (f - n),	(T)0.0,
+		};
+	}
 public:
 
 	T elements[S][S];
