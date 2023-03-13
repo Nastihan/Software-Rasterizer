@@ -93,7 +93,58 @@ private:
 	void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2, size_t triangle_index)
 	{
 		// generate triangle from 3 vertices using geometry shader 
-		PostProcessTriangleVertices(effect.gs(v0, v1, v2, triangle_index));
+		// call clipper
+		ClipCullTriangle(effect.gs(v0, v1, v2, triangle_index));
+
+	}
+
+	void ClipCullTriangle(Triangle<GSOut>& t)
+	{
+		// right plane cull test
+		if (t.v0.pos.x > t.v0.pos.w &&
+			t.v1.pos.x > t.v1.pos.w &&
+			t.v2.pos.x > t.v2.pos.w)
+		{
+			return;
+		}
+		// left plane cull test
+		if (t.v0.pos.x < -t.v0.pos.w &&
+			t.v1.pos.x < -t.v1.pos.w &&
+			t.v2.pos.x < -t.v2.pos.w)
+		{
+			return;
+		}
+		// top plane cull test
+		if (t.v0.pos.y > t.v0.pos.w &&
+			t.v1.pos.y > t.v1.pos.w &&
+			t.v2.pos.y > t.v2.pos.w)
+		{
+			return;
+		}
+		// bottom plane cull test
+		if (t.v0.pos.y < -t.v0.pos.w &&
+			t.v1.pos.y < -t.v1.pos.w &&
+			t.v2.pos.y < -t.v2.pos.w)
+		{
+			return;
+		}
+		// far plane cull test
+		if (t.v0.pos.z > t.v0.pos.w &&
+			t.v1.pos.z > t.v1.pos.w &&
+			t.v2.pos.z > t.v2.pos.w)
+		{
+			return;
+		}
+		// near plane cull test
+		if (t.v0.pos.z < 0.0f &&
+			t.v1.pos.z < 0.0f &&
+			t.v2.pos.z < 0.0f)
+		{
+			return;
+		}
+
+		PostProcessTriangleVertices(t);
+
 	}
 	// vertex post-processing function
 	// performs perspective division and screen transformation on the vertices and calls the draw function
