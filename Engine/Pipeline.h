@@ -247,8 +247,8 @@ private:
 		auto itEdge0 = it0;
 
 		// Calculate first and last scanline
-		const int yStart = (int)ceil(it0.pos.y - 0.5);
-		const int yEnd = (int)ceil(it2.pos.y - 0.5f);
+		const int yStart = std::max((int)ceil(it0.pos.y - 0.5f), 0);
+		const int yEnd = std::min((int)ceil(it2.pos.y - 0.5f), (int)Graphics::ScreenHeight - 1);
 
 		// interpolants prestep
 		itEdge0 += dv0 * (float(yStart) + 0.5f - it0.pos.y);
@@ -257,8 +257,8 @@ private:
 		for (int y = yStart; y < yEnd; y++, itEdge0 += dv0, itEdge1 += dv1) {
 
 			// calculate start and end pixels
-			const int xStart = (int)ceil(itEdge0.pos.x - 0.5f);
-			const int xEnd = (int)ceil(itEdge1.pos.x - 0.5f);
+			const int xStart = std::max((int)ceil(itEdge0.pos.x - 0.5f), 0);
+			const int xEnd = std::min((int)ceil(itEdge1.pos.x - 0.5f), (int)Graphics::ScreenWidth - 1);
 
 			// calculate scanline dTexCoord / dx
 			auto iLine = itEdge0;
