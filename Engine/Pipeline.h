@@ -143,7 +143,7 @@ private:
 			return;
 		}
 
-		//
+		// geometric clipping for triangles with one vertex on the other side of the z near plane
 		const auto Clip1 = [this](GSOut& v0, GSOut& v1, GSOut& v2)
 		{
 			const auto alpha1 = (-v0.pos.z) / (v1.pos.z - v0.pos.z);
@@ -156,6 +156,7 @@ private:
 			PostProcessTriangleVertices(Triangle<GSOut>{ v0b, v0a, v2 });
 		};
 
+		// geometric clipping for triangles with two vertices on the other side of the z near plane
 		const auto Clip2 = [this](GSOut& v0, GSOut& v1, GSOut& v2)
 		{
 			

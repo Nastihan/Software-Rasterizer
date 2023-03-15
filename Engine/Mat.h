@@ -72,6 +72,20 @@ public:
 			static_assert(false, "Bad dimensionality");
 		}
 	}
+
+	_Mat Inverse() const
+	{
+		_Mat xp;
+		for (size_t j = 0; j < S; j++)
+		{
+			for (size_t k = 0; k < S; k++)
+			{
+				xp.elements[j][k] = elements[k][j];
+			}
+		}
+		return xp;
+	}
+
 	static _Mat Scaling(T factor)
 	{
 		if constexpr (S == 3)

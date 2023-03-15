@@ -204,6 +204,9 @@
     <ClInclude Include="VertexWaveScene.h">
       <Filter>Header Files\Scenes\NotWorking</Filter>
     </ClInclude>
+    <ClInclude Include="MouseTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
